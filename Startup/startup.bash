@@ -36,7 +36,7 @@ BOOT_COUNTER_RTN=$(($BOOT_COUNTER_RTN % 10))
 
 $SLEEP_BIN $INHIBIT_COOKIE_TIMEOUT
 if [ -f "$INHIBIT_COOKIE" ]; then
-  rm $INHIBIT_COOKIE 2> /dev/null || evr 1 "failed to remove $INHIBIT_COOKIE"
+  rm $INHIBIT_COOKIE 2> /dev/null || evr 1 "failedv to remove $INHIBIT_COOKIE"
   evr 1 "$INHIBIT_COOKIE present; not running FSW"
   fail_signify_action &
   wait $!
@@ -81,8 +81,11 @@ if (( $? == 0 )); then
   evr 3 "running CURRENT $DEPLOYMENT"
   $SCREEN_BIN -D -m -S CURRENT bash -c \
       "( $BIN_DEREF $FSW_ARGS | $TEE_BIN ${STDOUT_LOG}$BOOT_COUNTER_RTN ) 3>&1 1>&2 2>&3 | $TEE_BIN ${STDERR_LOG}$BOOT_COUNTER_RTN"
-  # NOTE(mereweth) - if we get here, then we crashed - FPGA powers us off
+  # NOTE(mereweth) - if we get here, then we crashed
   evr 1 "CURRENT failed $BIN_DEREF"
+  evr 1 "Power cycling in 10 seconds"
+  $SLEEP_BIN 10
+  $REBOOT_BIN
 fi
 evr 3 "after trying CURRENT"
 
