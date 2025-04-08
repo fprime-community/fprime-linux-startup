@@ -11,11 +11,13 @@ RM_BIN=/bin/rm
 CUT_BIN=/usr/bin/cut
 ECHO_BIN=/bin/echo
 TEE_BIN=/usr/bin/tee
+# Have to add screen to image
 SCREEN_BIN=/usr/bin/screen
 SLEEP_BIN=/bin/sleep
 LS_BIN=/bin/ls
-READLINK="/bin/readlink -f"
+READLINK="/usr/bin/readlink -f"
 DATE_BIN="/bin/date +%s.%3N"
+REBOOT_BIN=/sbin/reboot
 
 # locations of files
 VERBOSITY=/seq/verbosity.bash
