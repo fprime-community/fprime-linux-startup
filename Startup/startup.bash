@@ -36,7 +36,7 @@ BOOT_COUNTER_RTN=$(($BOOT_COUNTER_RTN % 10))
 
 $SLEEP_BIN $INHIBIT_COOKIE_TIMEOUT
 if [ -f "$INHIBIT_COOKIE" ]; then
-  rm $INHIBIT_COOKIE 2> /dev/null || evr 1 "failedv to remove $INHIBIT_COOKIE"
+  rm $INHIBIT_COOKIE 2> /dev/null || evr 1 "failed to remove $INHIBIT_COOKIE"
   evr 1 "$INHIBIT_COOKIE present; not running FSW"
   fail_signify_action &
   wait $!
