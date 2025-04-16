@@ -1,0 +1,12 @@
+[Unit]
+Description=FSW Startup
+SourcePath=/startup/startup.bash
+
+[Service]
+User=root
+Restart=on-success
+RemainAfterExit=yes
+ExecStart=/startup/startup.bash
+
+[Install]
+WantedBy=multi-user.target
