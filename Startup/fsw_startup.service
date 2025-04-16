@@ -4,7 +4,7 @@ SourcePath=/startup/startup.bash
 
 [Service]
 User=root
-Restart=on-success
+Restart=always
 RemainAfterExit=yes
 ExecStart=/startup/startup.bash
 
