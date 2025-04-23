@@ -54,8 +54,8 @@ load_hbs: load
 	@adb push deployment_hbs.bash /startup/deployment.bash
 	$(call VALIDATE,deployment_hbs.bash,/startup/deployment.bash)
 
-load_gsat: load
-	@adb push deployment_gsat.bash /startup/deployment.bash
+load_cube: load
+	@adb push deployment_cube.bash /startup/deployment.bash
 	$(call VALIDATE,deployment_gsat.bash,/startup/deployment.bash)
 
 .PHONY: load load_nav load_hbs load_gsat load_test test #$(foreach FILE,$(STARTUP_TEST),$(FILE:.bats=))
