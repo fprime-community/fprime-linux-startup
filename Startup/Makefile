@@ -1,4 +1,7 @@
 # DO NOT ADD settings_local.bash TO THIS LIST
+# $(BOARDIP) and BOARDUSER are included in .env file
+include .env
+export
 STARTUP_SRC=boot_counter.bash hash_validation.bash startup_helpers.bash \
 						startup.bash logging.bash
 STARTUP_TEST=test_hash_parse_compare.bats test_hash_load_compare.bats \
@@ -15,10 +18,10 @@ endef
 
 # DO NOT ADD settings_local.bash TO THIS LIST
 load: settings.bash $(STARTUP_SRC)
-	@$(foreach FILE,$^,adb push $(FILE) /startup/;)
+	@$(foreach FILE,$^,scp $(FILE) $(BOARDUSER)@$(BOARDIP):/startup/;)
 	@$(foreach FILE,$^,$(call VALIDATE,$(FILE),/startup/$(FILE));)
-	@adb push verbosity.bash /seq/verbosity.bash
-	@adb push startup.conf /etc/init/startup.conf
+	@scp verbosity.bash $(BOARDUSER)@$(BOARDIP):/seq/verbosity.bash
+	@scp startup.conf $(BOARDUSER)@BOARRDIP:/etc/init/startup.conf
 	@$(call VALIDATE,startup.conf,/etc/init/startup.conf)
 
 load_test: settings_local.bash $(STARTUP_SRC)
@@ -55,7 +58,7 @@ load_hbs: load
 	$(call VALIDATE,deployment_hbs.bash,/startup/deployment.bash)
 
 load_cube: load
-	@adb push deployment_cube.bash /startup/deployment.bash
+	@scp deployment_cube.bash $(BOARDUSER)@$(BOARDIP):/startup/deployment.bash
 	$(call VALIDATE,deployment_gsat.bash,/startup/deployment.bash)
 
 .PHONY: load load_nav load_hbs load_gsat load_test test #$(foreach FILE,$(STARTUP_TEST),$(FILE:.bats=))

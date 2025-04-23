@@ -10,3 +10,4 @@ test/ut/STARTUP_BIN_UP
 !README.md
 
 log.txt
+.env
