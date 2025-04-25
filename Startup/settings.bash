@@ -47,17 +47,11 @@ INHIBIT_COOKIE=/tmp/MAGIC_COOKIE
 BOOT_COUNTER_FILE=/seq/BOOT_COUNTER
 
 startup_signify_action() {
-    ${ECHO_BIN} 1 > /sys/class/leds/green/blink || true
-    ${ECHO_BIN} 1 > /sys/class/leds/blue/blink || true
-    ${ECHO_BIN} 1 > /sys/class/leds/red/blink || true
+    # This is a stub for leds or other on board indicators of start-up
 }
 
 up_signify_action() {
-    # NOTE(mereweth) - project requests LED off
-    ${ECHO_BIN} 0 > /sys/class/leds/green/blink || true
-    ${ECHO_BIN} 0 > /sys/class/leds/blue/blink || true
-    ${ECHO_BIN} 0 > /sys/class/leds/red/blink || true
-
+    
     # configure core dump location and contents
     # TODO(mereweth) - how do we lose the heap but keep globals?
     ${ECHO_BIN} 0 > /proc/$$/coredump_filter || true
@@ -65,7 +59,5 @@ up_signify_action() {
 }
 
 fail_signify_action() {
-    ${ECHO_BIN} 0 > /sys/class/leds/green/blink || true
-    ${ECHO_BIN} 0 > /sys/class/leds/blue/blink || true
-    ${ECHO_BIN} 1 > /sys/class/leds/red/blink || true
+    # This is a stub for on board inidicators if they exist
 }
