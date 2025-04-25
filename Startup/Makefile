@@ -39,26 +39,8 @@ test_%: load_test
 test: load_test
 	@$(foreach FILE,$(STARTUP_TEST),cd test/ut; echo "Testing $(FILE)"; \
 		 															bats $(FILE); cd ../..; \
-																	echo;)
-
-load_nav: load
-	@adb push deployment_nav.bash /startup/deployment.bash
-	$(call VALIDATE,deployment_nav.bash,/startup/deployment.bash)
-
-load_navvicon: load
-	@adb push deployment_navvicon.bash /startup/deployment.bash
-	$(call VALIDATE,deployment_navvicon.bash,/startup/deployment.bash)
-
-load_navoutdoor: load
-	@adb push deployment_navoutdoor.bash /startup/deployment.bash
-	$(call VALIDATE,deployment_navoutdoor.bash,/startup/deployment.bash)
-
-load_hbs: load
-	@adb push deployment_hbs.bash /startup/deployment.bash
-	$(call VALIDATE,deployment_hbs.bash,/startup/deployment.bash)
-
 load_cube: load
 	@scp deployment_cube.bash $(BOARDUSER)@$(BOARDIP):/startup/deployment.bash
 	$(call VALIDATE,deployment_gsat.bash,/startup/deployment.bash)
 
-.PHONY: load load_nav load_hbs load_gsat load_test test #$(foreach FILE,$(STARTUP_TEST),$(FILE:.bats=))
+.PHONY: load load_cube load_test test #$(foreach FILE,$(STARTUP_TEST),$(FILE:.bats=))
